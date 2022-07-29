@@ -47,8 +47,6 @@ def on_message(client, userdata, msg):
                 for field in campo['fields']:
                     if field in dict_payload:
                         elementos_do_campo.append(dict_payload[field])
-                        print(elementos_do_campo)
-
             dict_save[campo['key']] = elementos_do_campo                
         else:
             if campo['type']=='str':
@@ -62,8 +60,7 @@ def on_message(client, userdata, msg):
     dict_save['timestamp_dispositivo'] = int(datetime.now().timestamp())
     dict_save['timestamp_servidor'] = int(datetime.now().timestamp())
     dict_save['dia_sem'] = calendar.day_name[dia_semana.weekday()]
-   
-    #queue.send_message(MessageBody=str(json.dumps(dict_save, ensure_ascii=False)))
+    queue.send_message(MessageBody=str(json.dumps(dict_save, ensure_ascii=False)))
     print(dict_save)
 try:
     print('[STATUS] Inicializando MQTT...')
